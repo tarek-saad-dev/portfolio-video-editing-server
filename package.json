@@ -1,0 +1,21 @@
+{
+    "name": "lms-codengo",
+    "version": "1.0.0",
+    "main": "api/index.js",
+    "scripts": {
+        "dev": "nodemon api/index.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "body-parser": "^2.2.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "mongoose": "^8.13.1",
+        "morgan": "^1.10.0",
+        "nodemon": "^3.1.9",
+        "serverless-http": "^3.2.0"
+    }
+}
