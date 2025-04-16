@@ -24,9 +24,9 @@ connection();
 
 // Routes
 
-const projectRoutes = require('../routes/projectRoutes');
-
-app.use('/api/projects', projectRoutes);
+app.get('/', (req, res) => {
+    res.send('API is running...');
+});
 
 
 const PORT = process.env.PORT || 5000;
