@@ -24,8 +24,13 @@ connection();
 
 // Routes
 
+const projectRoutes = require('../routes/projectRoutes');
+
+app.use('/api/projects', projectRoutes);
+
+// Health check route
 app.get('/', (req, res) => {
-    res.send('API is running... !!!');
+    res.send('API is running...');
 });
 
 
