@@ -11,11 +11,13 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
-app.use(cors({ origin: true, credentials: true }));
-app.use(cors({ origin: '*' }));
-// app.use(cors({ origin: 'http://localhost:5001' })); // For local development
-// app.use(cors({ origin: 'https://portfolio-ten-jet-74.vercel.app/' })); // Replace with your production URL
+const corsOptions = {
+    origin: ['http://localhost:5001', 'https://portfolio-ten-jet-74.vercel.app'], // add both dev and production URLs
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 
 app.use(morgan('dev'));
 app.use(express.json());
