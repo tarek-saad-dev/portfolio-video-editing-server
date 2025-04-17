@@ -12,12 +12,11 @@ const app = express();
 
 // Middleware
 const corsOptions = {
-    origin: ['http://localhost:5001', 'https://portfolio-ten-jet-74.vercel.app'], // add both dev and production URLs
-    credentials: true,
+    origin: '*', // allows any domain
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+app.options('*', cors(corsOptions)); // preflight support
 
 
 
