@@ -16,7 +16,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // preflight support
+// app.options('*', cors(corsOptions)); // preflight support
 
 
 
