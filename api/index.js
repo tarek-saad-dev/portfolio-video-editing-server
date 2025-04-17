@@ -14,8 +14,8 @@ const app = express();
 app.use(cors().allowCredentials());
 app.use(cors({ origin: true, credentials: true }));
 app.use(cors({ origin: '*' }));
-app.use(cors({ origin: 'http://localhost:5001' })); // For local development
-app.use(cors({ origin: 'https://portfolio-ten-jet-74.vercel.app/' })); // Replace with your production URL
+// app.use(cors({ origin: 'http://localhost:5001' })); // For local development
+// app.use(cors({ origin: 'https://portfolio-ten-jet-74.vercel.app/' })); // Replace with your production URL
 
 app.use(morgan('dev'));
 app.use(express.json());
