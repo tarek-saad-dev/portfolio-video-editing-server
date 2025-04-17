@@ -12,12 +12,16 @@ const app = express();
 
 // Middleware
 const corsOptions = {
-    origin: '*', // allows any domain
+    origin: [
+        'http://localhost:3000',
+        'http://localhost:5001',
+        'https://portfolio-graphic-design-umber.vercel.app', // ✅ <-- your frontend on Vercel
+    ],
+    credentials: true,
 };
 
 app.use(cors(corsOptions));
-// app.options('*', cors(corsOptions)); // preflight support
-
+app.options('*', cors(corsOptions));
 
 
 app.use(morgan('dev'));
