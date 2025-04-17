@@ -11,7 +11,7 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors().allowCredentials());
+app.use(cors());
 app.use(cors({ origin: true, credentials: true }));
 app.use(cors({ origin: '*' }));
 // app.use(cors({ origin: 'http://localhost:5001' })); // For local development
