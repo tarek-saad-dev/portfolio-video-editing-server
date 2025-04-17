@@ -23,12 +23,27 @@ const app = express();
 // app.use(cors(corsOptions));
 // app.options('*', cors(corsOptions));
 
-app.use(cors());
+// app.use(cors());
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     next();
+// });
+
+const corsOptions = {
+    origin: ['http://localhost:5001', 'https://portfolio-graphic-design-umber.vercel.app'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // if needed for cookies
+};
+
+app.use(cors(corsOptions));
+
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Access-Control-Allow-Origin', 'https://portfolio-graphic-design-umber.vercel.app');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
+
 
 app.use(morgan('dev'));
 app.use(express.json());
