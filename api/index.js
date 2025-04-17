@@ -11,18 +11,24 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-const corsOptions = {
-    origin: [
-        'http://localhost:3000',
-        'http://localhost:5001',
-        'https://portfolio-graphic-design-umber.vercel.app', // ✅ <-- your frontend on Vercel
-    ],
-    credentials: true,
-};
+// const corsOptions = {
+//     origin: [
+//         'http://localhost:3000',
+//         'http://localhost:5001',
+//         'https://portfolio-graphic-design-umber.vercel.app', // ✅ <-- your frontend on Vercel
+//     ],
+//     credentials: true,
+// };
 
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+// app.use(cors(corsOptions));
+// app.options('*', cors(corsOptions));
 
+app.use(cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
 
 app.use(morgan('dev'));
 app.use(express.json());
