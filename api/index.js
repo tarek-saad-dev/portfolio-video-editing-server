@@ -31,7 +31,7 @@ const app = express();
 // });
 
 const corsOptions = {
-    origin: ['http://localhost:5001', 'https://portfolio-graphic-design-umber.vercel.app'],
+    origin: ['http://localhost:5001', 'https://portfolio-video-editing-pi.vercel.app'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // if needed for cookies
 };
@@ -39,7 +39,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://portfolio-graphic-design-umber.vercel.app');
+    res.setHeader('Access-Control-Allow-Origin', 'https://portfolio-video-editing-pi.vercel.app');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
