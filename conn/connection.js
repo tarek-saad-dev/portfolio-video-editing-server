@@ -6,7 +6,7 @@ const connection = async() => {
 
     const dbURI = env === 'production' ?
         process.env.MONGO_URI_PROD :
-        process.env.MONGO_URI_LOCAL;
+        process.env.MONGO_URI_PROD;
 
     try {
         await mongoose.connect(dbURI);
