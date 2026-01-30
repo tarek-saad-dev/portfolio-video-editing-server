@@ -10,27 +10,41 @@ require('dotenv').config();
 // Initialize Express app
 const app = express();
 
-// Middleware
+// ============================================
+// CORS CONFIGURATION - ضع هذا قبل الـ routes
+// ============================================
+const PRODUCTION_ORIGIN = 'https://portfolio-video-editing-wheat.vercel.app';
+
 const corsOptions = {
-    origin: ['http://localhost:5001', 'https://portfolio-video-editing-pi.vercel.app'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // if needed for cookies
+    origin: function(origin, callback) {
+        // Production Frontend
+        if (origin === PRODUCTION_ORIGIN) {
+            return callback(null, true);
+        }
+
+        // Optional: Allow Vercel preview URLs
+        if (origin && origin.endsWith('.vercel.app')) {
+            return callback(null, true);
+        }
+
+        callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Preflight support
 
+// ============================================
+// OTHER MIDDLEWARE
+// ============================================
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 } else {
     app.use(morgan('combined'));
-}
-
-if (process.env.NODE_ENV === 'production') {
-    app.use((req, res, next) => {
-        res.setHeader('Access-Control-Allow-Origin', 'https://portfolio-video-editing-pi.vercel.app');
-        res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-        next();
-    });
 }
 
 
