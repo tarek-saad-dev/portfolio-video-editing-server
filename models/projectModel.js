@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { extractYouTubeId, normalizeYouTubeUrl } = require('../utils/youtubeHelper');
 
 /**
  * Project Schema for Video Editing Portfolio
@@ -9,7 +10,8 @@ const mongoose = require('mongoose');
  * - year: Year of project, 1900-2100 (required)
  * - durationSec: Duration in seconds (required)
  * - description: Project description (required)
- * - thumbnailUrl: URL/path to thumbnail image (required)
+ * - youtubeUrl: YouTube video URL or ID (optional)
+ * - thumbnailUrl: Manual thumbnail URL (optional, auto-generated from YouTube if not provided)
  * - tools: Array of tool names used (required, default [])
  * - isFeatured: Whether project is featured (optional, default true)
  * - sortOrder: Display sort order (optional, default 0)
@@ -50,12 +52,24 @@ const projectSchema = mongoose.Schema({
         minlength: [1, 'Description must be at least 1 character'],
         maxlength: [5000, 'Description cannot exceed 5000 characters']
     },
-    thumbnailUrl: {
+    youtubeUrl: {
         type: String,
-        required: [true, 'Thumbnail URL is required'],
         trim: true,
         validate: {
             validator: function(v) {
+                if (!v) return true; // Optional field
+                // Basic validation - full validation happens in pre-save hook
+                return typeof v === 'string' && v.trim().length > 0;
+            },
+            message: 'YouTube URL must be a non-empty string'
+        }
+    },
+    thumbnailUrl: {
+        type: String,
+        trim: true,
+        validate: {
+            validator: function(v) {
+                if (!v) return true; // Optional field
                 // Validate URL or path format
                 return /^(https?:\/\/|\/).*/.test(v);
             },
@@ -84,6 +98,17 @@ const projectSchema = mongoose.Schema({
 }, {
     timestamps: true, // Automatically adds createdAt and updatedAt
     collection: 'projects'
+});
+
+// Pre-save hook: Normalize YouTube URL
+projectSchema.pre('save', function(next) {
+    if (this.youtubeUrl) {
+        const normalized = normalizeYouTubeUrl(this.youtubeUrl);
+        if (normalized) {
+            this.youtubeUrl = normalized;
+        }
+    }
+    next();
 });
 
 // Indexes for performance

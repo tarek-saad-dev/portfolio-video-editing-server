@@ -3,6 +3,7 @@ require('dotenv').config();
 const Project = require('../models/projectModel');
 
 // Initial projects data
+// Note: Replace YouTube URLs with your actual video URLs
 const initialProjects = [
   {
     title: "Neon Nights",
@@ -10,7 +11,8 @@ const initialProjects = [
     year: 2024,
     durationSec: 180, // 3:00
     description: "A visually stunning short film exploring the vibrant nightlife of urban landscapes through neon-lit streets and dynamic cinematography.",
-    thumbnailUrl: "/thumbnails/neon-nights.jpg",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Replace with actual YouTube URL
+    // thumbnailUrl is optional - will be auto-generated from YouTube if not provided
     tools: ["Adobe Premiere Pro", "After Effects", "DaVinci Resolve", "Cinema 4D"],
     isFeatured: true,
     sortOrder: 1
@@ -21,7 +23,7 @@ const initialProjects = [
     year: 2024,
     durationSec: 90, // 1:30
     description: "A commercial project capturing the essence of luxury brands during the golden hour, featuring elegant transitions and color grading.",
-    thumbnailUrl: "/thumbnails/golden-hour.jpg",
+    youtubeUrl: "https://youtu.be/dQw4w9WgXcQ", // Can use short URL format
     tools: ["Final Cut Pro", "Color Finale", "Motion"],
     isFeatured: true,
     sortOrder: 2
@@ -32,7 +34,8 @@ const initialProjects = [
     year: 2023,
     durationSec: 1200, // 20:00
     description: "An in-depth documentary featuring interviews with industry leaders, showcasing authentic storytelling and professional editing techniques.",
-    thumbnailUrl: "/thumbnails/the-interview.jpg",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Replace with actual YouTube URL
+    thumbnailUrl: "/thumbnails/the-interview.jpg", // Manual thumbnail (optional)
     tools: ["Adobe Premiere Pro", "Audition", "Photoshop"],
     isFeatured: false,
     sortOrder: 0
@@ -43,7 +46,7 @@ const initialProjects = [
     year: 2024,
     durationSec: 60, // 1:00
     description: "A dynamic showreel showcasing architectural videography and time-lapse techniques of urban skylines.",
-    thumbnailUrl: "/thumbnails/skyline.jpg",
+    youtubeUrl: "dQw4w9WgXcQ", // Can use just the video ID
     tools: ["DaVinci Resolve", "LRTimelapse", "After Effects"],
     isFeatured: true,
     sortOrder: 3
@@ -54,7 +57,7 @@ const initialProjects = [
     year: 2023,
     durationSec: 240, // 4:00
     description: "A dramatic short film exploring themes of resilience and transformation, featuring intense editing and sound design.",
-    thumbnailUrl: "/thumbnails/breaking-point.jpg",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Replace with actual YouTube URL
     tools: ["Adobe Premiere Pro", "After Effects", "Pro Tools"],
     isFeatured: true,
     sortOrder: 4
@@ -65,7 +68,7 @@ const initialProjects = [
     year: 2024,
     durationSec: 210, // 3:30
     description: "A vibrant music video with experimental color grading and rhythmic editing synchronized to the beat.",
-    thumbnailUrl: "/thumbnails/chromatic.jpg",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Replace with actual YouTube URL
     tools: ["Final Cut Pro", "DaVinci Resolve", "After Effects", "Trapcode Suite"],
     isFeatured: true,
     sortOrder: 5
