@@ -7,6 +7,7 @@ const { extractYouTubeId, normalizeYouTubeUrl } = require('../utils/youtubeHelpe
  * Fields:
  * - title: Project title (required)
  * - category: Project category from predefined list (required)
+ * - date: Project date - user-entered date for sorting (required)
  * - year: Year of project, 1900-2100 (required)
  * - durationSec: Duration in seconds (required)
  * - description: Project description (required)
@@ -33,6 +34,10 @@ const projectSchema = mongoose.Schema({
             values: ['Short Film', 'Documentary', 'Commercial', 'Corporate', 'Reel', 'Music Video'],
             message: 'Category must be one of: Short Film, Documentary, Commercial, Corporate, Reel, Music Video'
         }
+    },
+    date: {
+        type: Date,
+        required: [true, 'Project date is required']
     },
     year: {
         type: Number,
@@ -112,8 +117,9 @@ projectSchema.pre('save', function(next) {
 });
 
 // Indexes for performance
-projectSchema.index({ category: 1, year: -1 });
-projectSchema.index({ isFeatured: 1, sortOrder: 1, year: -1 });
+projectSchema.index({ date: -1, createdAt: -1 });
+projectSchema.index({ category: 1, date: -1 });
+projectSchema.index({ isFeatured: 1, date: -1 });
 projectSchema.index({ tools: 1 });
 projectSchema.index({ title: 'text', description: 'text' });
 
@@ -131,19 +137,19 @@ projectSchema.set('toObject', { virtuals: true });
 // Static method: Get featured projects
 projectSchema.statics.getFeatured = function() {
     return this.find({ isFeatured: true })
-        .sort({ sortOrder: 1, year: -1 });
+        .sort({ date: -1, createdAt: -1 });
 };
 
 // Static method: Get projects by category
 projectSchema.statics.getByCategory = function(category) {
     return this.find({ category })
-        .sort({ year: -1 });
+        .sort({ date: -1, createdAt: -1 });
 };
 
 // Static method: Get projects by tool
 projectSchema.statics.getByTool = function(tool) {
     return this.find({ tools: tool })
-        .sort({ year: -1 });
+        .sort({ date: -1, createdAt: -1 });
 };
 
 // Static method: Search projects
