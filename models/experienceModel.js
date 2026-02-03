@@ -25,6 +25,11 @@ const experienceSchema = new mongoose.Schema({
         type: [String],
         required: true
     },
+    organizationLogoKey: {
+        type: String,
+        default: '',
+        trim: true
+    },
     order: {
         type: Number,
         default: 0
